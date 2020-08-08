@@ -18,7 +18,7 @@ class Coin {
 
 class Game {
   constructor() {
-    this.board = document.querySelectorAll('#board div')
+    this.board = document.querySelectorAll('section#board div')
     this.furry = new Furry()
     this.coin = new Coin()
     this.score = 0
@@ -101,20 +101,15 @@ class Game {
     if (this.furry.x < 0 || this.furry.x > 9 || this.furry.y < 0 || this.furry.y > 9) {
       clearInterval(this.idSetInterval);
       this.hideVisibleFurry();
+      this.furry = new Furry;
+      document.querySelector('.coin').classList.remove('coin');
+      this.coin = new Coin;
       document.getElementById('over').classList.remove('hide');
       document.getElementById('final-score').innerText = this.score;
-      document.querySelector('.coin').classList.remove('coin');
-
-      document.querySelector('.btn').addEventListener('click', function () {
-        document.getElementById('over').classList.add('hide');
-        const game = new Game;
-        game.showCoin();
-        game.showFurry();
-        game.watchDirection();
-        game.startGame();
-      })
+      
     }
   }
+  
   
   watchDirection() {
     const self = this
@@ -124,6 +119,14 @@ class Game {
   }
 }
 
+document.querySelector('.btn').addEventListener('click', function () {
+  document.getElementById('over').classList.add('hide');
+  const game = new Game;
+  game.showCoin();
+  game.showFurry();
+  game.watchDirection();
+  game.startGame();
+})
 
 const game = new Game;
 game.showCoin();
