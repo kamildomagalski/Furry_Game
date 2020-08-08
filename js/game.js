@@ -35,7 +35,6 @@ class Game {
     } else if (this.furry.direction === 'down') {
       this.furry.y = this.furry.y + 1;
     }
-    // console.log(this.furry.x, this.furry.y)
     this.gameOver();
     this.hideVisibleFurry()
     this.showFurry();
@@ -43,10 +42,7 @@ class Game {
   }
   
   startGame() {
-    const self = this;
-    this.idSetInterval = setInterval(function () {
-      self.moveFurry();
-    }, 250)
+    this.idSetInterval = setInterval(() => this.moveFurry(), 250);
   }
   
   hideVisibleFurry() {
@@ -54,7 +50,7 @@ class Game {
     furryClass.classList.remove('furry');
   }
   
-  turnFurry(turnEvent = 38) {
+  turnFurry(turnEvent) {
     switch (turnEvent.which) {
       case 37:
         this.furry.direction = 'left'
@@ -95,12 +91,8 @@ class Game {
     }
   }
   
-  
   watchDirection() {
-    const self = this
-    document.addEventListener('keydown', function (event) {
-      self.turnFurry(event);
-    });
+    document.addEventListener('keydown', event => this.turnFurry(event));
   }
 }
 
