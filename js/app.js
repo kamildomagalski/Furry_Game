@@ -35,7 +35,8 @@ class Game {
   showCoin() {
     this.board[this.index(this.coin.x, this.coin.y)].classList.add('coin')
   }
-  hideCoin(){
+  
+  hideCoin() {
     this.board[this.index(this.coin.x, this.coin.y)].classList.remove('coin')
   }
   
@@ -49,6 +50,8 @@ class Game {
     } else if (this.furry.direction === 'down') {
       this.furry.y = this.furry.y + 1;
     }
+    // console.log(this.furry.x, this.furry.y)
+    this.gameOver();
     this.hideVisibleFurry()
     this.showFurry();
     this.checkCoinCollision();
@@ -83,22 +86,47 @@ class Game {
     }
   }
   
-  checkCoinCollision(){
-    if (this.index(this.furry.x, this.furry.y) === this.index(this.coin.x, this.coin.y)){
+  checkCoinCollision() {
+    if (this.index(this.furry.x, this.furry.y) === this.index(this.coin.x, this.coin.y)) {
       this.hideCoin();
-     this.score ++;
-      const scoreBoard=document.getElementById('score');
-      scoreBoard.innerText= this.score;
+      this.score++;
+      const scoreBoard = document.getElementById('score');
+      scoreBoard.innerText = this.score;
       this.coin = new Coin;
       this.showCoin();
     }
   }
+  
+  gameOver() {
+    if (this.furry.x < 0 || this.furry.x > 9 || this.furry.y < 0 || this.furry.y > 9) {
+      clearInterval(this.idSetInterval);
+      this.hideVisibleFurry();
+      document.getElementById('over').classList.remove('hide');
+      document.getElementById('final-score').innerText = this.score;
+      document.querySelector('.coin').classList.remove('coin');
+
+      document.querySelector('.btn').addEventListener('click', function () {
+        document.getElementById('over').classList.add('hide');
+        const game = new Game;
+        game.showCoin();
+        game.showFurry();
+        game.watchDirection();
+        game.startGame();
+      })
+    }
+  }
+  
+  watchDirection() {
+    const self = this
+    document.addEventListener('keydown', function (event) {
+      self.turnFurry(event);
+    });
+  }
 }
 
-document.addEventListener('keydown', function (event) {
-  game.turnFurry(event);
-});
+
 const game = new Game;
 game.showCoin();
 game.showFurry();
+game.watchDirection();
 game.startGame();
