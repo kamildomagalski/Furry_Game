@@ -1,2 +1,13 @@
 # Furry_Game
-A Furry Game provided by CodersLab as a exercise during the bootcamp
+
+## About
+> A simple JavaScript game based on resources provided by CodersLab as a exercise during the bootcamp.
+> My task was to use Classes to make logic for the game.
+
+## Technologies
+* JavaScript 
+* Sass
+* Webpack
+
+
+## Play the game, give yourself some entertainment! 
